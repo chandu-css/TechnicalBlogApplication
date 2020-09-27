@@ -44,4 +44,20 @@ public class PostService {
         posts.add(post);
         return posts;
     }
+
+    public ArrayList<Post> createPost(Post newPost){
+        ArrayList<Post> posts = new ArrayList<>();
+        Post post = new Post();
+        post.setTitle("This is your first Post");
+        post.setBody("This is your first body");
+        post.setDate(new Date());
+
+        newPost.setDate(new Date());
+
+        posts.add(post);
+        posts.add(newPost);
+
+        return posts;
+
+    }
 }
