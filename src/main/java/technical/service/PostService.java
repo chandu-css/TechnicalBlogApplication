@@ -3,49 +3,26 @@ package technical.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import technical.model.Post;
+import technical.repository.PostRepository;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PostService {
 
-    public ArrayList<Post> getAllPosts(){
-        ArrayList<Post> posts = new ArrayList<>();
-        Post post = new Post();
-        post.setTitle("Post 1");
-        post.setBody("Body 1");
-        post.setDate(new Date());
+    @Autowired
+    private PostRepository repository;
 
-        Post post2 = new Post();
-        post2.setTitle("Post 2");
-        post2.setBody("Body 2");
-        post2.setDate(new Date());
-
-        Post post3 = new Post();
-        post3.setTitle("Post 3");
-        post3.setBody("Body 3");
-        post3.setDate(new Date());
-
-        posts.add(post);
-        posts.add(post2);
-        posts.add(post3);
-
-        return posts;
+    public List<Post> getAllPosts(){
+        return repository.getAllPosts();
     }
 
-    public ArrayList<Post> getOnePost(){
-        ArrayList<Post> posts = new ArrayList<>();
-        Post post = new Post();
-        post.setTitle("This is your first Post");
-        post.setBody("This is your first body");
-        post.setDate(new Date());
-
-        posts.add(post);
-        return posts;
+    public Post getOnePost(){
+        return repository.getLatestPost();
     }
 
-    public ArrayList<Post> createPost(Post newPost){
+    /*public ArrayList<Post> createPost(Post newPost){
         ArrayList<Post> posts = new ArrayList<>();
         Post post = new Post();
         post.setTitle("This is your first Post");
@@ -59,5 +36,24 @@ public class PostService {
 
         return posts;
 
+    }*/
+
+    public void createPost(Post newPost){
+        newPost.setDate(new Date());
+        repository.createPost(newPost);
+        System.out.println("New Post"+ newPost);
+    }
+
+    public Post getPost(Integer id){
+        return repository.getPost(id);
+    }
+
+    public void updatePost(Post post){
+        post.setDate(new Date());
+        repository.updatePost(post);
+    }
+
+    public void removePost(Integer id){
+        repository.removePost(id);
     }
 }
